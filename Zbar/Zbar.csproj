@@ -65,16 +65,10 @@
     <Compile Include="ZBarException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="libiconv-2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="libiconv.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="libzbar-0.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="libzbar64-0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="zbar\win-x64\libiconv.dll" />
