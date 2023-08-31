@@ -18,7 +18,7 @@ namespace ZBar
         // !important! vc redist 2013 is required to run this library!!
         // https://www.microsoft.com/en-us/download/details.aspx?id=40784
 
-        private const string DllName = "libzbar-0.dll";
+        private const string DllName = "libzbar64-0.dll";
 
         [DllImport(DllName)]
         public static extern IntPtr _zbar_error_string(IntPtr obj, int verbosity);
