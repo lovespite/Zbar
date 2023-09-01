@@ -78,8 +78,11 @@ namespace ZBar
                 using (MemoryStream ms = new MemoryStream())
                 {
                     bitmap.Save(ms, ImageFormat.Bmp);
+                    // bitmap.Dispose();
+
                     ms.Seek(54, SeekOrigin.Begin);
                     ms.Read(data, 0, data.Length);
+                    // ms.Dispose();
                 }
             }
             //Set the data
@@ -87,6 +90,30 @@ namespace ZBar
             this.Width = (uint)image.Width;
             this.Height = (uint)image.Height;
             this.Format = FourCC('R', 'G', 'B', '3');
+        }
+
+        public static ZbImage CreateNoConvert(Image bmp)
+        {
+            var zimg = new ZbImage();
+            Byte[] data = new byte[bmp.Width * bmp.Height * 3];
+            // no need to convert to rgb3, just copy the data
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                bmp.Save(ms, ImageFormat.Bmp);
+                // bitmap.Dispose();
+
+                ms.Seek(54, SeekOrigin.Begin);
+                ms.Read(data, 0, data.Length);
+                // ms.Dispose();
+            }
+
+            zimg.Data = data;
+            zimg.Width = (uint)bmp.Width;
+            zimg.Height = (uint)bmp.Height;
+            zimg.Format = FourCC('Y', '8', '0', '0');
+
+            return zimg;
         }
 
         /// <value>

@@ -59,13 +59,21 @@ namespace ZBar
         /// <returns>
         /// A list of symbols found in the image
         /// </returns>
-        public List<Symbol> Scan(System.Drawing.Image image)
+        public List<Symbol> Scan(System.Drawing.Image image, bool noConvert = false)
         {
-            using (ZbImage zimg = new ZbImage(image))
+            if (noConvert)
             {
+                using (var zimg = ZbImage.CreateNoConvert(image))
+                {
+                    this.Scan(zimg);
+                    return new List<Symbol>(zimg.Symbols);
+                }
+            }
+            else
+            { 
+                using (ZbImage zimg = new ZbImage(image))
                 using (ZbImage grey = zimg.Convert(ZbImage.FourCC('Y', '8', '0', '0')))
                 {
-                    
                     this.Scan(grey);
                     return new List<Symbol>(grey.Symbols);
                 }
